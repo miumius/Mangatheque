@@ -1,0 +1,75 @@
+# you describe your data using the YAML notation here
+# and then load them using Fixtures.load("data.yml")
+
+Auteur(oda):
+    nom: "Eiichirō Oda"
+    
+Auteur(kishimoto):
+    nom: "Masashi Kishimoto"
+
+Auteur(miura):
+    nom: "Kentaro Miura"
+
+Genre(shonen):
+    nom: Shōnen
+
+Genre(seinen):
+    nom: Seinen
+
+Serie(naruto):
+    titre: Naruto
+    auteurs: [kishimoto]
+    genre: shonen
+
+Serie(one_piece):
+    titre: "One Piece"
+    auteurs: [oda]
+    genre: shonen
+
+Serie(berserk):
+    titre: Berserk
+    auteurs: [miura]
+    genre: seinen
+
+Manga(naruto_1):
+    serie: naruto
+    volume: 1
+
+Manga(naruto_2):
+    serie: naruto
+    volume: 2
+    
+Manga(naruto_3):
+    serie: naruto
+    volume: 3
+
+Manga(one_piece_1):
+    serie: one_piece
+    volume: 1
+
+Manga(one_piece_2):
+    serie: one_piece
+    volume: 2
+
+Manga(one_piece_3):
+    serie: one_piece
+    volume: 3
+
+Manga(berserk_1):
+    serie: berserk
+    volume: 1
+
+Manga(berserk_2):
+    serie: berserk
+    volume: 2
+
+Manga(berserk_3):
+    serie: berserk
+    volume: 3
+
+Utilisateur(moi):
+    email: cedric.lemius@gmail.com
+    motDePasse: secret
+    mangas: [naruto_1, naruto_2, naruto_3, one_piece_1, one_piece_2, one_piece_3, berserk_1, berserk_2, berserk_3]
+
+    
