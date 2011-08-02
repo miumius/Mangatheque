@@ -11,4 +11,7 @@ public class Auteur extends Model {
 	@Required
 	public String nom;
 	
+	public String toString(){
+		return this.nom;
+	}
 }

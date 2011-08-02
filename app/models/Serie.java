@@ -23,4 +23,8 @@ public class Serie extends Model {
 	@Required
 	@ManyToOne
 	public Genre genre;	
+	
+	public String toString(){
+		return this.titre; 
+	}
 }

@@ -40,4 +40,8 @@ public class Manga extends Model {
 	public static List<Manga> findAllMangaByAuteur(Auteur auteur){
 		return find("select distinct m from Manga m join m.serie s join s.auteurs a where a.id = ?", auteur.id).fetch();
 	}
+	
+	public String toString(){
+		return this.serie.titre + " " + this.volume;
+	}
 }

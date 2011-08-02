@@ -10,4 +10,9 @@ public class Genre extends Model{
 
 	@Required
 	public String nom;
+	
+	public String toStirng(){
+		return this.nom;
+	}
+
 }
