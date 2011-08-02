@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -33,16 +34,35 @@ public class Utilisateur extends Model {
 		return find("byEmailAndMotDePasse",email, motDePasse).first();		
 	}
 	
-	public static List<Serie> mesSeries(){
-		return find("select distinct m.serie from Utilisateur u join u.mangas m").fetch();
+	public static List<Serie> findAllSeries(Utilisateur utilisateur){
+		return find("select distinct m.serie from Utilisateur u join u.mangas m where u.id = ?", utilisateur.id).fetch();
 	}
 	
-	public static List<Auteur> mesAuteurs(){
-		return find("select distinct s.auteurs from Utilisateur u join u.mangas m join m.serie s").fetch();
+	public static List<Auteur> findAllAuteurs(Utilisateur utilisateur){
+		return find("select distinct s.auteurs from Utilisateur u join u.mangas m join m.serie s where u.id = ?", utilisateur.id).fetch();
 	}
 	
-	public static List<Manga> mesMangasDeLaSerie(Serie serie){
-		//return find("select distinct m from Utilisateur u join u.mangas m join m.serie s where s.id = ?", serie.id).fetch();
-		return find("select distinct manga from Utilisateur utilisateur join utilisateur.mangas manga join manga.serie serie where serie.id = ?", serie.id).fetch();
+	public static List<Manga> findAllMangaOfSerie(Utilisateur utilisateur, Serie serie){		
+		return find("select distinct m from Utilisateur u join u.mangas m join m.serie s where s.id = ? and u.id = ?", serie.id, utilisateur.id).fetch();
+	}
+	
+	public static List<Manga> findAllMangaOfAuteur(Utilisateur utilisateur, Auteur auteur){
+		return find("select distinct m from Utilisateur u join u.mangas m join m.serie s join s.auteurs a where a.id = ? and u.id = ?", auteur.id, utilisateur.id).fetch();
+	}
+	
+	public static List<Manga> findAllMangaOfGenre(Utilisateur utilisateur, Genre genre){
+		return find("select distinct m from Utilisateur u join u.mangas m join m.serie s join s.genre g where g.id = ? and u.id = ?", genre.id, utilisateur.id).fetch();
+	}
+	
+	public static boolean isMySerieComplete(Utilisateur utilisateur, Serie serie){
+		return (Manga.findAllMangaBySerie(serie).size() == Utilisateur.findAllMangaOfSerie(utilisateur, serie).size()); 
+	}
+	
+	public static List<Manga> findMissingMangasInSerie(Utilisateur utilisateur, Serie serie){
+		return find("select distinct m from Manga m join m.serie s where m.id not in (select distinct manga.id from Utilisateur u join u.mangas manga join manga.serie serie where serie.id = ? and u.id = ? ) and s.id = ?", serie.id, utilisateur.id, serie.id).fetch();
+	}
+	
+	public String toString(){
+		return this.email;
 	}
 }

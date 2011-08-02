@@ -29,4 +29,15 @@ public class Manga extends Model {
 	@Lob
 	public Blob couverture;
 	
+	public static List<Manga> findAllMangaBySerie(Serie serie){
+		return find("select distinct m from Manga m join m.serie s where s.id = ?", serie.id).fetch();
+	}
+	
+	public static List<Manga> findAllMangaByGenre(Genre genre){
+		return find("select distinct m from Manga m join m.serie s join s.genre g where g.id = ?", genre.id).fetch();
+	}
+	
+	public static List<Manga> findAllMangaByAuteur(Auteur auteur){
+		return find("select distinct m from Manga m join m.serie s join s.auteurs a where a.id = ?", auteur.id).fetch();
+	}
 }
