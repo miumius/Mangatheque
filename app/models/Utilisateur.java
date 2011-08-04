@@ -2,11 +2,9 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 import play.data.validation.Email;
 import play.data.validation.Required;
@@ -18,9 +16,12 @@ public class Utilisateur extends Model {
 	@Required
 	@Email
 	public String email;
-	
+		
 	@Required
 	public String motDePasse;
+	
+	@Required
+	public boolean isAdmin;  
 	
 	@ManyToMany
 	public List<Manga> mangas = new ArrayList<Manga>();

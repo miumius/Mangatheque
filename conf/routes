@@ -3,7 +3,7 @@
 # ~~~~
 
 # Import the default CRUD routes
-GET     /admin       module:crud
+GET     /admin                                  module:crud
 
 # Home page
 GET     /                                       Application.index
@@ -13,6 +13,9 @@ GET     /favicon.ico                            404
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
+
+# Import Secure routes
+*      /                module:secure
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
