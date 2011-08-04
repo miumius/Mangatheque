@@ -17,4 +17,16 @@ public class Application extends Controller {
 		List<Serie> series = Utilisateur.findAllSeries(utilisateur);
 		render(series, utilisateur);
 	}
+	
+	
+	public static void showSerie(){
+		
+	}
+	
+	public static void getIllustrationSerie(long idSerie){
+	   Serie serie = Serie.findById(idSerie);
+	   notFoundIfNull(serie);
+	   response.setContentTypeIfNotSet(serie.illustration.type());
+	   renderBinary(serie.illustration.get());
+	}
 }

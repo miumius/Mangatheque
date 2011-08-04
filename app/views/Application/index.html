@@ -7,4 +7,8 @@
     
     <h2>Mes séries :</h2>
     
-    
+    <ul>
+        #{list items:series, as:'serie'}
+            <li><a href="@@{Application.showSerie(serie.id)"><img src="@{Application.getIllustrationSerie(serie.id)}" alt="${serie.nom}" /></a></li>
+        #{/list}
+    </ul>
